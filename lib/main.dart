@@ -1,8 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:gangazar_app/bikers.dart';
+import 'package:provider/provider.dart';
+
+import 'bikers.dart';
+import 'provider/bikers_provider.dart';
 import 'result_screen.dart';
 
-void main() => runApp(const MyApp());
+void main() {
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => BikerListProvider(),
+      child: MyApp(),
+    ),
+  );
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
@@ -22,6 +32,9 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Agreando la escucha de eventos del provider
+    final _bikersProvider = Provider.of<BikerListProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -73,8 +86,10 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(height: 600.0),
             ElevatedButton(
               onPressed: () async {
-                String selectedBiker = getRandomBikerNameFromList();
-                if (selectedBiker.isNotEmpty) {
+                // Generando el id del biker
+                String selectedBiker =
+                    _bikersProvider.getRandomBikerNameFromList();
+                if (_bikersProvider.bikersList.isNotEmpty) {
                   Navigator.push(
                     context,
                     MaterialPageRoute(

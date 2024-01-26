@@ -1,5 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'provider/bikers_provider.dart';
 
 class Biker {
   String name;
@@ -13,21 +15,13 @@ class BikersScreen extends StatefulWidget {
 }
 
 class _BikersScreenState extends State<BikersScreen> {
-  List<Biker> bikersList = [];
   final TextEditingController nameController = TextEditingController();
-
-  String getRandomBikerNameFromList() {
-    if (bikersList.isNotEmpty) {
-      final random = Random();
-      final randomIndex = random.nextInt(bikersList.length);
-      return bikersList[randomIndex].name;
-    } else {
-      return '';
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
+    // Agreando la escucha de eventos del provider
+    final bikersList = Provider.of<BikerListProvider>(context).bikersList;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -70,7 +64,8 @@ class _BikersScreenState extends State<BikersScreen> {
             SizedBox(height: 2),
             ElevatedButton(
               onPressed: () {
-                addParticipant();
+                // Agregando el nombre del biker
+                addParticipant(bikersList);
               },
               child: Text(
                 'Agregar',
@@ -117,7 +112,7 @@ class _BikersScreenState extends State<BikersScreen> {
     );
   }
 
-  void addParticipant() {
+  void addParticipant(List<Biker> bikersList) {
     String name = nameController.text.trim();
 
     if (name.isNotEmpty) {

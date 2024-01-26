@@ -1,23 +1,25 @@
 name: gangazar_app
 description: "A new Flutter project."
-publish_to: 'none'
+publish_to: "none"
 
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.2.5 <4.0.0'
+  sdk: ">=3.2.5 <4.0.0"
 
 dependencies:
+  cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
-  cupertino_icons: ^1.0.2
+  provider: ^6.1.1
 
 dev_dependencies:
+  flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
 
 flutter:
   uses-material-design: true
   assets:
     - assets/fondo1.jpg # Asegúrate de que esta línea esté correctamente alineada con el nivel del atributo "assets"
+
